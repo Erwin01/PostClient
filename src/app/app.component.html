@@ -1,0 +1,73 @@
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1"><strong>THE POSTMAN NEW APP</strong></span>
+  <button type="button" class="btn btn-danger" (click)="logOut()">Logout</button>
+</nav>
+<article class="container container-fluid">
+  <section class="create" *ngIf="isCreate">
+    <h1>Create Post</h1>
+    <br>
+    <!-- <app-login></app-login> -->
+    <form>
+        <div class="form-group">
+          <!-- <label for="title"> Title</label> -->
+          <input type="text" class="form-control" id="title" name="title" placeholder="Enter your title" [(ngModel)]="title">
+        </div>
+        <br>
+        <div class="form-group">
+          <input type="text" class="form-control" id="content" name="content" placeholder="Enter your content" [(ngModel)]="content">
+        </div>
+        <br>
+        <div class="form-group">
+          <input type="date" class="form-control" id="dateCreate" name="dateCreate" placeholder="Enter your date" [(ngModel)]="dateCreate">
+        </div>
+        <br>
+        <!--image-->
+        <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+        <div class="row"> 
+          <div class="offset-md-10 col-md-6">
+            <button type="button" class="btn btn-success" (click)="onCreate()">Publish</button>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="offset-md-0 col-md-2">
+            <button type="button" class="btn btn-primary" (click)="refreshPage()"><i class="fa fa-bars"></i></button>
+          </div>
+        </div>
+      </form>
+  </section>
+
+  <section class="users" *ngIf="!isCreate">
+    <table class="table table-responsive">
+      <div style="text-align: center flex auto; color:grey;"><strong><h4>What do you want to post today?...</h4></strong></div>
+      <thead>
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Title</th>
+          <th scope="col">Content</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td><img [src]="createImgPath(user.imgPath)" alt="profile picture" style="width:60px; height:60px;"></td>
+          <td>{{user.title}}</td>
+          <td>{{user.content}}</td>
+          <td>{{user.dateCreate | date: "dd/MM/yyyy"}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="">
+      <div class="offset-md-10 col-md-8">
+        <button type="button" class="btn btn-success" (click)="returnToCreate()">New Post</button>        
+      </div>
+    </div>
+  </section>
+</article>
+<footer class="page-footer font-small blue">
+  <div class="footer-copyright text-center py-3">© 2020 Developed for:
+    <a href="https://www.julius2grow.com/es/inicio/" target="blank">Julius2Grow</a>
+  </div>
+</footer>
+
+<app-login></app-login>
